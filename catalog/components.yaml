@@ -1,0 +1,565 @@
+version: "1.0"
+catalog_id: operator-v1
+
+categories:
+
+  # ── Display ─────────────────────────────────────────────────────────
+  - id: display
+    label: Display
+    components:
+      - type: Text
+        description: Render text content with optional variant styling.
+        best_for: [simple text output, explanations, labels]
+        properties:
+          content: { type: string, required: true }
+          variant: { type: string }
+
+      - type: KPI
+        description: Key performance indicator card with trend arrow and status color.
+        best_for: [single headline metric, status indicators]
+        properties:
+          label: { type: string, required: true }
+          value: { type: string, required: true }
+          trend: { type: string }
+          status: { type: string }
+
+      - type: MetricGroup
+        description: Grouped metrics panel — a compact row of 2-4 KPIs.
+        best_for: [at-a-glance overviews, related metrics together]
+        properties:
+          title: { type: string }
+          metrics: { type: array, required: true }
+
+      - type: Scorecard
+        description: Scorecard with value, target, status, and trend.
+        best_for: [goal tracking, target comparison]
+        properties:
+          title: { type: string, required: true }
+          value: { type: string, required: true }
+          target: { type: string }
+          status: { type: string }
+          trend: { type: string }
+
+      - type: ProgressBar
+        description: Progress indicator with label, value, and optional max.
+        best_for: [completion tracking, capacity utilization]
+        properties:
+          label: { type: string, required: true }
+          value: { type: number, required: true }
+          max: { type: number }
+          status: { type: string }
+
+      - type: StatCard
+        description: Compact stat card with delta and icon.
+        best_for: [dashboard stat tiles, change indicators]
+        properties:
+          label: { type: string, required: true }
+          value: { type: string, required: true }
+          delta: { type: string }
+          delta_type: { type: string }
+          icon: { type: string }
+
+      - type: Card
+        description: Generic card container with title, subtitle, and content.
+        best_for: [grouping related info, detail panels]
+        properties:
+          title: { type: string, required: true }
+          subtitle: { type: string }
+          content: { type: string }
+
+      - type: Image
+        description: Display an image from a URL.
+        best_for: [photos, diagrams, logos]
+        properties:
+          src: { type: string, required: true }
+          alt: { type: string }
+          width: { type: number }
+          height: { type: number }
+
+      - type: Markdown
+        description: Render markdown content.
+        best_for: [rich text, formatted explanations]
+        properties:
+          content: { type: string, required: true }
+
+      - type: Badge
+        description: Small label badge with optional variant.
+        best_for: [status tags, category labels]
+        properties:
+          label: { type: string, required: true }
+          variant: { type: string }
+
+  # ── Charts ──────────────────────────────────────────────────────────
+  - id: charts
+    label: Charts
+    components:
+      - type: LineChart
+        description: Line chart for trends over time or multi-series comparison.
+        best_for: [time-series trends, velocity, multi-series comparison]
+        data_shape: "array of {x_key: category, y_keys: number[]}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          y_keys: { type: array, required: true }
+
+      - type: AreaChart
+        description: Filled area chart for trends with volume emphasis.
+        best_for: [cumulative metrics, volume over time]
+        data_shape: "array of {x_key: category, y_keys: number[]}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          y_keys: { type: array, required: true }
+          stacked: { type: boolean }
+
+      - type: BarChart
+        description: Vertical or horizontal bar chart for category comparison.
+        best_for: [comparing values across categories, rankings]
+        data_shape: "array of {x_key: category, y_keys: number[]}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          y_keys: { type: array, required: true }
+          horizontal: { type: boolean }
+          stacked: { type: boolean }
+
+      - type: PieChart
+        description: Pie or donut chart for proportional distribution.
+        best_for: [proportional breakdown, composition analysis]
+        data_shape: "array of {name_key: label, value_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          name_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+          donut: { type: boolean }
+
+      - type: ComboChart
+        description: Mixed bar + line chart for dual-axis comparison.
+        best_for: [actual vs budget, magnitude + rate together]
+        data_shape: "array of {x_key: category, bar_keys: number[], line_keys: number[]}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          bar_keys: { type: array }
+          line_keys: { type: array }
+
+      - type: Histogram
+        description: Frequency distribution histogram with automatic binning.
+        best_for: [distribution analysis, spread visualization]
+        data_shape: "array of {value_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          value_key: { type: string, required: true }
+          bins: { type: number }
+
+      - type: ScatterChart
+        description: Scatter plot for correlation between two numeric variables.
+        best_for: [correlation analysis, outlier detection]
+        data_shape: "array of {x_key: number, y_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          y_key: { type: string, required: true }
+          size_key: { type: string }
+          color_key: { type: string }
+
+      - type: GraphChart
+        description: Network/relationship graph with force-directed or circular layout.
+        best_for: [entity relationships, dependency graphs, org charts]
+        data_shape: "nodes: [{id, name, group?}], edges: [{source, target, label?}]"
+        properties:
+          title: { type: string }
+          nodes: { type: array, required: true }
+          edges: { type: array, required: true }
+          layout: { type: string }
+
+      - type: Heatmap
+        description: Two-dimensional heatmap for density or intensity visualization.
+        best_for: [time-of-day patterns, cross-tabulation intensity]
+        data_shape: "array of {x_key, y_key, value_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          y_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+
+      - type: TreeMap
+        description: Hierarchical treemap for nested proportional data.
+        best_for: [space allocation, budget breakdown, hierarchical composition]
+        data_shape: "array of {name_key: label, value_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          name_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+          color_key: { type: string }
+
+      - type: Sunburst
+        description: Radial hierarchy chart for nested categorical data.
+        best_for: [hierarchical drill-down, nested categories]
+        data_shape: "array of {name_key: label, value_key: number, children?}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          name_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+
+      - type: Sankey
+        description: Flow diagram showing quantities between stages.
+        best_for: [flow analysis, pipeline stages, resource allocation]
+        data_shape: "nodes: [{id, name}], links: [{source, target, value}]"
+        properties:
+          title: { type: string }
+          nodes: { type: array, required: true }
+          links: { type: array, required: true }
+
+      - type: Funnel
+        description: Funnel chart for sequential stage drop-off.
+        best_for: [conversion funnels, pipeline attrition]
+        data_shape: "array of {name_key: stage, value_key: count}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          name_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+
+      - type: Radar
+        description: Radar/spider chart for multi-dimensional comparison.
+        best_for: [multi-attribute comparison, skill profiles, scoring]
+        properties:
+          title: { type: string }
+          data: { type: array }
+          indicators: { type: array, required: true }
+          series: { type: array, required: true }
+
+      - type: Waterfall
+        description: Waterfall chart showing cumulative effect of sequential values.
+        best_for: [financial bridges, incremental changes, P&L breakdown]
+        data_shape: "array of {name_key: label, value_key: delta}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          name_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+
+      - type: Candlestick
+        description: OHLC candlestick chart for financial time-series.
+        best_for: [financial data, price movement, OHLC analysis]
+        data_shape: "array of {date, open, close, high, low}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          date_key: { type: string, required: true }
+          open_key: { type: string, required: true }
+          close_key: { type: string, required: true }
+          high_key: { type: string, required: true }
+          low_key: { type: string, required: true }
+
+      - type: BoxPlot
+        description: Box-and-whisker plot for statistical distribution.
+        best_for: [distribution comparison, outlier identification]
+        data_shape: "array of {category_key?, value_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          category_key: { type: string }
+          value_key: { type: string, required: true }
+
+      - type: GaugeChart
+        description: Gauge/dial chart for a single value against a range.
+        best_for: [single metric against target, capacity meters]
+        properties:
+          title: { type: string }
+          value: { type: number, required: true }
+          min: { type: number }
+          max: { type: number }
+          thresholds: { type: array }
+
+      - type: BubbleChart
+        description: Bubble chart — scatter with size dimension.
+        best_for: [three-variable comparison, weighted scatter]
+        data_shape: "array of {x_key, y_key, size_key: number}"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          x_key: { type: string, required: true }
+          y_key: { type: string, required: true }
+          size_key: { type: string, required: true }
+          color_key: { type: string }
+
+      - type: ParallelCoordinates
+        description: Parallel coordinates for high-dimensional data comparison.
+        best_for: [multi-dimensional filtering, pattern detection across many variables]
+        data_shape: "array of objects, dimensions: [dimension names]"
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          dimensions: { type: array, required: true }
+
+  # ── Maps ────────────────────────────────────────────────────────────
+  - id: maps
+    label: Maps
+    components:
+      - type: Choropleth
+        description: Filled geographic regions colored by value.
+        best_for: [regional comparison, geographic distribution]
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          region_key: { type: string, required: true }
+          value_key: { type: string, required: true }
+          geo: { type: string }
+
+      - type: PointMap
+        description: Map with positioned markers at lat/lng coordinates.
+        best_for: [location plotting, site comparison]
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          lat_key: { type: string, required: true }
+          lng_key: { type: string, required: true }
+          label_key: { type: string }
+          size_key: { type: string }
+
+      - type: GeoHeatMap
+        description: Geographic heatmap showing intensity at coordinates.
+        best_for: [density visualization, activity hotspots]
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          lat_key: { type: string, required: true }
+          lng_key: { type: string, required: true }
+          intensity_key: { type: string }
+
+      - type: FlowMap
+        description: Map showing flows between origin and destination points.
+        best_for: [migration patterns, logistics flows, transfer visualization]
+        properties:
+          title: { type: string }
+          flows: { type: array, required: true }
+          origin_key: { type: string, required: true }
+          dest_key: { type: string, required: true }
+          value_key: { type: string }
+
+  # ── Data ────────────────────────────────────────────────────────────
+  - id: data
+    label: Data
+    components:
+      - type: DataTable
+        description: Sortable, filterable data table.
+        best_for: [structured row/column data, detailed records, lists]
+        properties:
+          title: { type: string }
+          columns: { type: array, required: true }
+          rows: { type: array, required: true }
+          sortable: { type: boolean }
+          filterable: { type: boolean }
+
+      - type: PivotTable
+        description: Pivot table with row/column/value aggregation.
+        best_for: [cross-tabulation, aggregated summaries]
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          rows: { type: array, required: true }
+          columns: { type: array }
+          values: { type: array, required: true }
+          aggregation: { type: string }
+
+      - type: KeyValueList
+        description: Simple key-value pair list.
+        best_for: [property details, configuration display, metadata]
+        properties:
+          title: { type: string }
+          items: { type: array, required: true }
+
+      - type: Timeline
+        description: Chronological event timeline.
+        best_for: [event sequences, historical records, activity logs]
+        properties:
+          title: { type: string }
+          events: { type: array, required: true }
+          date_key: { type: string }
+          label_key: { type: string }
+          description_key: { type: string }
+
+      - type: TreeList
+        description: Hierarchical tree list with expandable nodes.
+        best_for: [hierarchical data, nested categories, org structure]
+        properties:
+          title: { type: string }
+          data: { type: array, required: true }
+          label_key: { type: string, required: true }
+          children_key: { type: string }
+
+  # ── Layout ──────────────────────────────────────────────────────────
+  - id: layout
+    label: Layout
+    components:
+      - type: Row
+        description: Horizontal flex container.
+        best_for: [side-by-side layout, horizontal grouping]
+        properties:
+          gap: { type: string }
+          align: { type: string }
+          justify: { type: string }
+
+      - type: Column
+        description: Vertical flex container.
+        best_for: [vertical stacking, column layout]
+        properties:
+          gap: { type: string }
+          align: { type: string }
+
+      - type: Grid
+        description: CSS grid container.
+        best_for: [dashboard grids, multi-column layouts]
+        properties:
+          columns: { type: number }
+          gap: { type: string }
+          min_width: { type: string }
+
+      - type: Stack
+        description: Directional stack container.
+        best_for: [flexible direction stacking]
+        properties:
+          direction: { type: string }
+          gap: { type: string }
+
+      - type: Divider
+        description: Visual separator line.
+        best_for: [section separation]
+        properties:
+          orientation: { type: string }
+
+      - type: Tabs
+        description: Tabbed container with labeled panels.
+        best_for: [multi-view content, section navigation]
+        properties:
+          labels: { type: array, required: true }
+          default_index: { type: number }
+
+      - type: Accordion
+        description: Expandable/collapsible section.
+        best_for: [progressive disclosure, FAQ-style content]
+        properties:
+          title: { type: string, required: true }
+          expanded: { type: boolean }
+
+      - type: Modal
+        description: Overlay dialog panel.
+        best_for: [confirmations, detail views, focused input]
+        properties:
+          title: { type: string, required: true }
+          open: { type: boolean }
+          size: { type: string }
+
+  # ── Input ───────────────────────────────────────────────────────────
+  - id: input
+    label: Input
+    components:
+      - type: Button
+        description: Clickable button that triggers an action.
+        best_for: [user actions, confirmations, triggers]
+        properties:
+          label: { type: string, required: true }
+          variant: { type: string }
+          action: { type: string }
+          disabled: { type: boolean }
+
+      - type: TextField
+        description: Single-line text input field.
+        best_for: [text entry, search, short form fields]
+        properties:
+          label: { type: string, required: true }
+          placeholder: { type: string }
+          value: { type: string }
+          required: { type: boolean }
+
+      - type: Select
+        description: Dropdown select from a list of options.
+        best_for: [single choice from options, filters]
+        properties:
+          label: { type: string, required: true }
+          options: { type: array, required: true }
+          value: { type: string }
+
+      - type: DatePicker
+        description: Date selection input.
+        best_for: [date range selection, scheduling]
+        properties:
+          label: { type: string, required: true }
+          value: { type: string }
+          min: { type: string }
+          max: { type: string }
+
+      - type: Slider
+        description: Numeric range slider.
+        best_for: [numeric range selection, threshold adjustment]
+        properties:
+          label: { type: string, required: true }
+          min: { type: number, required: true }
+          max: { type: number, required: true }
+          value: { type: number }
+          step: { type: number }
+
+      - type: Toggle
+        description: Boolean on/off switch.
+        best_for: [boolean settings, feature toggles]
+        properties:
+          label: { type: string, required: true }
+          value: { type: boolean }
+
+      - type: MultipleChoice
+        description: Multiple choice selection (checkboxes or radio).
+        best_for: [multi-select options, surveys, filters]
+        properties:
+          label: { type: string, required: true }
+          options: { type: array, required: true }
+          selected: { type: array }
+          multi: { type: boolean }
+
+      - type: FilterBar
+        description: Composite filter bar with multiple filter controls.
+        best_for: [data filtering, search refinement]
+        properties:
+          filters: { type: array, required: true }
+          applied: { type: object }
+
+  # ── Interactive ─────────────────────────────────────────────────────
+  - id: interactive
+    label: Interactive
+    components:
+      - type: ApprovalCard
+        description: Approval workflow card with accept/reject actions.
+        best_for: [approval workflows, review decisions]
+        properties:
+          title: { type: string, required: true }
+          description: { type: string, required: true }
+          amount: { type: number }
+          approve_label: { type: string }
+          reject_label: { type: string }
+
+      - type: ConfirmDialog
+        description: Confirmation dialog with confirm/cancel actions.
+        best_for: [destructive action confirmation, important decisions]
+        properties:
+          title: { type: string, required: true }
+          message: { type: string, required: true }
+          confirm_label: { type: string }
+          cancel_label: { type: string }
+
+      - type: ActionMenu
+        description: Dropdown action menu with multiple options.
+        best_for: [contextual actions, overflow menus]
+        properties:
+          label: { type: string }
+          items: { type: array, required: true }

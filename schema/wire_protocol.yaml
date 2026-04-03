@@ -1,0 +1,99 @@
+version: "1.0"
+description: >
+  A2UI wire protocol messages sent from agent to frontend over the LiveKit
+  data channel. All messages are JSON objects with a "type" discriminator field.
+
+# Core model types used across messages.
+models:
+  BoundValue:
+    description: >
+      A value that is either a literal or a JSONPath binding into the
+      Surface data_model. Exactly one field should be set.
+    fields:
+      literalString: { type: string, description: "Literal string value" }
+      literalNumber: { type: number, description: "Literal numeric value" }
+      literalBoolean: { type: boolean, description: "Literal boolean value" }
+      path: { type: string, description: "JSONPath into data_model, e.g. 'metrics.occupancy'" }
+
+  Component:
+    description: A single UI component in the flat adjacency list.
+    fields:
+      id: { type: string, required: true }
+      type: { type: string, required: true, description: "Maps to a catalog component type" }
+      properties: { type: "Record<string, BoundValue>", default: "{}" }
+      children: { type: "string[]", default: "[]", description: "Child component IDs" }
+      style: { type: "Record<string, string>", default: "{}" }
+
+  Surface:
+    description: A complete renderable surface — the top-level A2UI unit.
+    fields:
+      surfaceId: { type: string, required: true }
+      components: { type: "Component[]", required: true }
+      dataModel: { type: object, required: true, description: "Data for BoundValue path bindings" }
+      rootId: { type: string, required: true, description: "ID of the root component" }
+      catalog: { type: string, default: "operator-v1" }
+
+  UserAction:
+    description: An action triggered by user interaction with a surface component.
+    fields:
+      surfaceId: { type: string, required: true }
+      componentId: { type: string, required: true }
+      action: { type: string, required: true, description: "'click', 'change', or 'submit'" }
+      value: { type: any, description: "Action payload" }
+
+# Wire protocol messages (agent → frontend).
+messages:
+  surface_update:
+    description: >
+      Full surface state. Creates or replaces the surface on the frontend.
+      Sent when compose_ui produces a new layout.
+    fields:
+      type: { const: surface_update }
+      surface_id: { type: string, required: true }
+      components: { type: "Component[]", required: true }
+      data_model: { type: object, required: true }
+      root_id: { type: string }
+      catalog: { type: string, default: "operator-v1" }
+      slideGroup: { type: string, description: "Groups surfaces into a slide deck" }
+      title: { type: string, description: "Surface title for presentation mode" }
+      ts: { type: number, description: "Unix timestamp" }
+
+  data_model_update:
+    description: >
+      Incremental data update via RFC 6902 JSON Patch. Allows the agent to
+      update displayed data without resending the full component tree.
+    fields:
+      type: { const: data_model_update }
+      surface_id: { type: string, required: true }
+      patches: { type: "JSONPatch[]", required: true, description: "RFC 6902 operations" }
+      ts: { type: number }
+
+  begin_rendering:
+    description: >
+      Signal to the frontend to start rendering a surface. Sent after
+      surface_update to trigger the render cycle.
+    fields:
+      type: { const: begin_rendering }
+      surface_id: { type: string, required: true }
+      root_id: { type: string, required: true }
+      catalog: { type: string, required: true }
+      ts: { type: number }
+
+  delete_surface:
+    description: Remove a surface from the frontend.
+    fields:
+      type: { const: delete_surface }
+      surface_id: { type: string, required: true }
+      ts: { type: number }
+
+# Wire protocol messages (frontend → agent).
+user_messages:
+  user_action:
+    description: >
+      Sent when the user interacts with a surface component (click, change, submit).
+    fields:
+      type: { const: user_action }
+      surface_id: { type: string, required: true }
+      component_id: { type: string, required: true }
+      action_type: { type: string, required: true }
+      value: { type: any }

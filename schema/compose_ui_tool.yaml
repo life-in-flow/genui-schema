@@ -1,0 +1,54 @@
+name: compose_ui
+namespace: a2ui
+category: display
+description: >
+  Compose a custom UI layout with multiple components, data bindings, and
+  interactive elements. This is the single display tool — use it for dashboards,
+  KPI panels, data tables, charts, forms, approval flows, or any visual output.
+
+  The layout is a nested component tree. Each node specifies a type from the
+  component catalog, properties, and optional children. Properties can be
+  literal values or data bindings ({"path": "key"}) resolved against the
+  data model at render time.
+
+parameters:
+  layout:
+    type: object
+    required: true
+    description: >
+      Nested component tree. Each node: {"type": "ComponentType", "props": {...}, "children": [...]}.
+      The tree is flattened to a flat adjacency list before sending to the frontend.
+    example:
+      type: Row
+      props:
+        gap: md
+      children:
+        - type: KPI
+          props:
+            label: Occupancy
+            value: "92%"
+            trend: up
+            status: good
+        - type: LineChart
+          props:
+            title: Occupancy Trend
+            data:
+              path: occupancy_data
+            x_key: month
+            y_keys: [rate]
+
+  data:
+    type: object
+    required: false
+    description: >
+      Optional data model for bindings. Properties in the layout can reference
+      data keys via {"path": "key.subkey"}. Complex values (arrays, objects)
+      passed as literal props are auto-promoted to the data model.
+
+  interactive:
+    type: boolean
+    required: false
+    default: false
+    description: >
+      If true, register the surface for user interaction callbacks. When a user
+      clicks a Button or submits a form, the agent receives a user_action message.
