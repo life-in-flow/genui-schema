@@ -2,8 +2,83 @@
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 from .catalog import STANDARD_CATALOG
 from .models import Surface
+
+
+_ALLOWED_LITERALS = {"transparent", "inherit", "none", "auto"}
+
+
+@lru_cache(maxsize=1)
+def _build_token_registry() -> frozenset[str]:
+    """Build a set of all valid flow/ token paths from the design system."""
+    from .design import load_design_system
+
+    ds = load_design_system()
+    tokens: set[str] = set()
+
+    # Spacing: flow/spacing/{name}
+    for name in ds.tokens.spacing:
+        tokens.add(f"flow/spacing/{name}")
+
+    # Radius: flow/radius/{name}
+    for name in ds.tokens.radius:
+        tokens.add(f"flow/radius/{name}")
+
+    # Stroke widths: flow/stroke/{name}
+    for name in ds.tokens.stroke:
+        tokens.add(f"flow/stroke/{name}")
+
+    # Size: flow/size/{name}
+    for name in ds.tokens.size:
+        tokens.add(f"flow/size/{name}")
+
+    # Semantic colors: flow/color/{role}/{name}
+    for role, entries in ds.tokens.semantic_colors.items():
+        for name in entries:
+            tokens.add(f"flow/color/{role}/{name}")
+
+    # Palette colors: flow/color/{palette}/{step}
+    for palette, steps in ds.tokens.color_palettes.items():
+        for step in steps:
+            tokens.add(f"flow/color/{palette}/{step}")
+
+    # Typography: flow/font/{style-name}
+    for style_name in ds.tokens.typography.get("scale", {}):
+        tokens.add(f"flow/font/{style_name}")
+
+    return frozenset(tokens)
+
+
+def _validate_style_value(comp_id: str, key: str, value: str) -> list[str]:
+    """Validate a single style value against the token registry."""
+    registry = _build_token_registry()
+    errors: list[str] = []
+
+    # Split compound values (e.g., "flow/stroke/sm solid flow/color/stroke/primary")
+    parts = value.split()
+    flow_refs = [p for p in parts if p.startswith("flow/")]
+    non_flow_parts = [p for p in parts if not p.startswith("flow/")]
+
+    if not flow_refs:
+        # No flow/ references -- must be an allowed literal
+        if value.lower() not in _ALLOWED_LITERALS:
+            errors.append(
+                f"Component '{comp_id}': style '{key}' = {value!r} "
+                f"is not a flow/ token or allowed literal"
+            )
+    else:
+        # Validate each flow/ reference
+        for ref in flow_refs:
+            if ref not in registry:
+                errors.append(
+                    f"Component '{comp_id}': style '{key}' references "
+                    f"unknown token '{ref}'"
+                )
+
+    return errors
 
 
 def validate_surface(surface: Surface) -> list[str]:
@@ -50,5 +125,9 @@ def validate_surface(surface: Surface) -> list[str]:
                 errors.append(
                     f"Component '{comp.id}': child '{child_id}' not found in components"
                 )
+
+        # Validate style values against token registry
+        for key, value in comp.style.items():
+            errors.extend(_validate_style_value(comp.id, key, value))
 
     return errors
