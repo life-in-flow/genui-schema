@@ -1,0 +1,257 @@
+version: "1.0"
+
+containers:
+  card:
+    description: "Primary content container"
+    background: flow/color/bg/primary
+    border: "flow/stroke/sm solid flow/color/stroke/primary"
+    borderRadius: flow/radius/md
+    padding: flow/spacing/3xl
+    childGap: flow/spacing/xl
+    layout: "flex column"
+
+  card_section:
+    description: "Tighter container for nested content"
+    background: flow/color/bg/primary
+    border: "flow/stroke/sm solid flow/color/stroke/primary"
+    borderRadius: flow/radius/sm
+    padding: flow/spacing/xl
+
+  section_container:
+    header:
+      background: flow/color/bg/secondary
+      padding: "flow/spacing/lg flow/spacing/3xl"
+      borderBottom: "flow/stroke/sm solid flow/color/stroke/primary"
+      borderRadiusTop: flow/radius/md
+      minHeight: flow/size/14
+      titleFont: display-sm
+      iconGap: flow/spacing/md
+    content:
+      background: flow/color/bg/primary
+      padding: flow/spacing/3xl
+      borderRadiusBottom: flow/radius/md
+    root:
+      border: flow/stroke/sm solid flow/color/stroke/primary
+      borderRadius: flow/radius/md
+
+  filter_card:
+    default:
+      background: flow/color/bg/tertiary
+      border: "1px solid flow/color/stroke/primary"
+    selected:
+      background: flow/color/bg/primary
+      border: "flow/stroke/sm solid flow/color/stroke/accent"
+    borderRadius: flow/radius/sm
+    padding: flow/spacing/xl
+    hover:
+      background: flow/color/bg/hover
+
+spacing_rhythm:
+  between_sections:
+    token: flow/spacing/4xl
+    value: 32
+    use: "major section gaps"
+  card_padding:
+    token: flow/spacing/3xl
+    value: 24
+    use: "default card padding"
+  card_padding_section:
+    token: flow/spacing/xl
+    value: 16
+    use: "section variant card padding"
+  section_header_padding:
+    token: "flow/spacing/lg x flow/spacing/3xl"
+    value: "12x24"
+    use: "section header"
+  child_gap:
+    token: flow/spacing/xl
+    value: 16
+    use: "child gap inside card"
+  list_items:
+    token: flow/spacing/lg
+    value: 12
+    use: "between list items"
+  icon_label:
+    token: flow/spacing/md
+    value: 8
+    use: "icon + label gap"
+  tight:
+    token: flow/spacing/sm
+    value: 4
+    use: "tight element gaps"
+  hero_margin:
+    token: flow/spacing/6xl
+    value: 48
+    use: "hero section bottom margin"
+
+surface_hierarchy:
+  level_1:
+    token: flow/color/bg/primary
+    use: "canvas default, card backgrounds"
+  level_2:
+    token: flow/color/bg/secondary
+    use: "card headers, alternating rows, elevated areas"
+  level_3:
+    token: flow/color/bg/tertiary
+    use: "nested containers, inset elements"
+  level_4:
+    token: flow/color/bg/quaternary
+    use: "deep nesting, recessed insets"
+  level_5:
+    token: flow/color/bg/quinary
+    use: "deepest nesting, badge fills"
+  rule: "Never skip levels. Depth should feel like stacking warm paper."
+
+separation:
+  gap_only:
+    gap: flow/spacing/lg
+    use: "loose lists, card grids, items without strict visual alignment"
+  border_separator:
+    paddingBottom: flow/spacing/lg
+    borderBottom: "flow/stroke/sm solid flow/color/stroke/primary"
+    use: "data rows, key-value pairs, settings lists"
+  bordered_items:
+    padding: flow/spacing/xl
+    border: "flow/stroke/sm solid flow/color/stroke/primary"
+    borderRadius: flow/radius/xs
+    gap: flow/spacing/lg
+    use: "editable blocks, draggable items"
+
+stroke_rules:
+  use_strokes_for:
+    - container borders
+    - data row separators
+    - section header dividers
+    - "table header emphasis (1.5px)"
+    - input field underlines
+    - tab container bottom border
+  do_not_use_strokes_for:
+    - spacing between cards
+    - gallery separation
+    - "button boundaries (primary/ghost have none)"
+    - hero content
+    - between sections
+  rule: "Use strokes for structural containers and interactive boundaries. Use tonal surface shifts for spatial separation. Boundaries are defined by tonal shifts, not 1px borders."
+
+typography_roles:
+  card_title:
+    font: "display-sm or heading-md"
+    note: "14px or 20px depending on emphasis"
+  section_label:
+    font: display-xs
+    note: "12px, uppercase, letter-spacing 0.2px"
+  body:
+    font: body-md
+    note: "14px"
+  secondary:
+    font: body-md
+    color: flow/color/text/secondary
+    note: "14px muted"
+  caption:
+    font: body-sm
+    note: "12px"
+  tab_label:
+    font: body-sm
+    note: "13px"
+  typeface_rules:
+    - "Gen 1970 for headings only"
+    - "Poppins for display only"
+    - "Inter for body only"
+    - "Never interchange typefaces across roles"
+    - "Use body-md-semibold for emphasis"
+
+buttons:
+  variants:
+    primary:
+      description: "Primary action, high emphasis"
+    secondary:
+      description: "Secondary action, medium emphasis"
+    ghost:
+      description: "Low emphasis, no background or border"
+    destructive:
+      description: "Destructive or irreversible action"
+    link:
+      description: "Inline text-style action"
+  sizes:
+    small:
+      height: 24px
+      padding: flow/spacing/sm
+      font: body-sm
+    medium:
+      height: 32px
+      padding: flow/spacing/md
+      font: body-md
+    large:
+      height: 40px
+      padding: flow/spacing/lg
+      font: body-md
+  borderRadius: flow/radius/sm
+  rules:
+    - "Never add borders to primary or ghost buttons"
+    - "Use destructive variant for delete/remove actions only"
+    - "Button labels are sentence case, never all-caps"
+
+charts:
+  color_slots:
+    - flow/color/chart/a
+    - flow/color/chart/b
+    - flow/color/chart/c
+    - flow/color/chart/d
+    - flow/color/chart/e
+    - flow/color/chart/f
+    - flow/color/chart/g
+    - flow/color/chart/h
+    - flow/color/chart/i
+    - flow/color/chart/j
+  container:
+    background: transparent
+    tooltip:
+      background: flow/color/bg/primary
+      border: "flow/stroke/sm solid flow/color/stroke/primary"
+      borderRadius: flow/radius/sm
+      padding: flow/spacing/md
+    grid_lines:
+      stroke: flow/color/stroke/primary
+      strokeDasharray: "4 4"
+  grid_padding:
+    left: 60
+    right: 20
+    top: 60
+    bottom: 40
+  animation: "300ms ease-out"
+  rules:
+    - "Use sequential color slots (a, b, c...) for multi-series charts"
+    - "Place legend above or to the right of the chart, never below"
+    - "Charts should always be wrapped in a card container"
+    - "Apply border radius to bar chart bars using flow/radius/xs"
+
+interactive_states:
+  hover:
+    background: flow/color/bg/hover
+  focus:
+    outline: flow/color/stroke/focus
+    outlineWidth: flow/stroke/md
+  selected:
+    background: flow/color/bg/selected
+    border: flow/color/stroke/accent
+  disabled:
+    opacity: flow/opacity/disabled
+    cursor: not-allowed
+
+table:
+  header:
+    font: display-xs
+    textTransform: uppercase
+    letterSpacing: 0.2px
+    color: flow/color/text/tertiary
+    padding: "flow/spacing/sm flow/spacing/lg"
+    borderBottom: "1.5px solid flow/color/stroke/primary"
+  body:
+    font: body-md
+    color: flow/color/text/primary
+    padding: "flow/spacing/md flow/spacing/lg"
+    borderBottom: "flow/stroke/sm solid flow/color/stroke/primary"
+  summary:
+    borderTop: "1.5px solid flow/color/stroke/primary"
+    fontWeight: 600
+    paddingTop: flow/spacing/md
