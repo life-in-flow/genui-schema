@@ -1,0 +1,652 @@
+version: "1.0"
+system: flowmingo
+
+size:
+  "0": 0
+  hairline: 0.5
+  "025": 1
+  "0375": 1.5
+  "05": 2
+  "1": 4
+  "1_5": 6
+  "2": 8
+  "3": 12
+  "4": 16
+  "5": 20
+  "6": 24
+  "7": 28
+  "8": 32
+  "9": 36
+  "10": 40
+  "11": 44
+  "12": 48
+  "13": 52
+  "14": 56
+  "15": 60
+  "16": 64
+  "17": 68
+  "18": 72
+  "19": 76
+  "20": 80
+
+spacing:
+  none:
+    value: 0
+    alias: size/0
+  xs:
+    value: 2
+    alias: size/05
+    use: "tight gaps"
+  sm:
+    value: 4
+    alias: size/1
+    use: "tight element gaps (icon + label)"
+  md:
+    value: 8
+    alias: size/2
+    use: "standard inner padding"
+  lg:
+    value: 12
+    alias: size/3
+    use: "list item gaps"
+  xl:
+    value: 16
+    alias: size/4
+    use: "card padding, child gap inside card"
+  2xl:
+    value: 20
+    alias: size/5
+  3xl:
+    value: 24
+    alias: size/6
+    use: "large card padding"
+  4xl:
+    value: 32
+    alias: size/8
+    use: "section gaps"
+  5xl:
+    value: 40
+    alias: size/10
+  6xl:
+    value: 48
+    alias: size/12
+    use: "hero section bottom margin"
+  7xl:
+    value: 56
+    alias: size/14
+  8xl:
+    value: 64
+    alias: size/16
+    use: "page-level vertical rhythm"
+  9xl:
+    value: 72
+    alias: size/18
+  10xl:
+    value: 80
+    alias: size/20
+
+radius:
+  xs:
+    value: 2
+    alias: size/05
+  sm:
+    value: 4
+    alias: size/1
+  md:
+    value: 8
+    alias: size/2
+  lg:
+    value: 12
+    alias: size/3
+  xl:
+    value: 16
+    alias: size/4
+  2xl:
+    value: 24
+    alias: size/6
+  full:
+    value: 9999
+
+stroke:
+  hairline:
+    value: 0.5
+    alias: size/hairline
+  sm:
+    value: 1
+    alias: size/025
+  md:
+    value: 1.5
+    alias: size/0375
+  lg:
+    value: 2
+    alias: size/05
+  xl:
+    value: 4
+    alias: size/1
+
+color_palettes:
+  defaults:
+    white: "#FAFEFF"
+    black: "#1A1A1A"
+    transparent: "#FFFFFF"
+  heart:
+    25: "#FFFAFB"
+    50: "#FEF5F6"
+    100: "#FDE0E4"
+    200: "#FCD1D7"
+    300: "#FBBBC5"
+    400: "#FAAEBA"
+    500: "#F99AA9"
+    600: "#E38C9A"
+    700: "#B16D78"
+    800: "#89555D"
+    900: "#694147"
+    950: "#42292D"
+  jade:
+    25: "#FBFEFD"
+    50: "#EDFAF5"
+    100: "#C7EEDF"
+    200: "#ACE6CF"
+    300: "#86DBB9"
+    400: "#6FD4AC"
+    500: "#4BC997"
+    600: "#44B789"
+    700: "#358F6B"
+    800: "#296F53"
+    900: "#20543F"
+    950: "#15372A"
+  lavender:
+    25: "#FDFAFF"
+    50: "#F9F5FF"
+    100: "#F3E8FF"
+    200: "#E9D5FF"
+    300: "#D8B4FE"
+    400: "#C084FC"
+    500: "#A855F7"
+    600: "#9333EA"
+    700: "#7C3AED"
+    800: "#6B21A8"
+    900: "#581C87"
+    950: "#3B0764"
+  midnight:
+    25: "#FCFCFC"
+    50: "#F2F2F2"
+    100: "#D9D9D9"
+    200: "#A6A6A6"
+    300: "#7D7D7D"
+    400: "#646464"
+    500: "#3D3D3D"
+    600: "#383838"
+    700: "#2B2B2B"
+    800: "#222222"
+    900: "#1A1A1A"
+    950: "#121212"
+  moonlight:
+    25: "#FEFCFB"
+    50: "#FCF9F7"
+    100: "#FBF9F5"
+    200: "#F9F7F0"
+    300: "#F7F3EA"
+    400: "#F5F1E5"
+    500: "#F3EDDF"
+    550: "#EBE7DB"
+    600: "#DDD8CB"
+    700: "#ADA89E"
+    800: "#86827B"
+    900: "#666464"
+    950: "#4A4944"
+  oceanSwell:
+    25: "#E9EBF8"
+    50: "#F2F7F8"
+    100: "#D7E6EA"
+    200: "#C3D9E0"
+    300: "#A8C8D1"
+    400: "#97BDC9"
+    500: "#7DADBB"
+    600: "#729DAA"
+    700: "#597B85"
+    800: "#455F67"
+    900: "#35494F"
+    950: "#233034"
+  olive:
+    25: "#FBFBF9"
+    50: "#F1F1E8"
+    100: "#D5D4B7"
+    200: "#C0BF94"
+    300: "#A3A164"
+    400: "#918F45"
+    500: "#767317"
+    600: "#6B6915"
+    700: "#545210"
+    800: "#41400D"
+    900: "#32300A"
+    950: "#222107"
+  roots:
+    25: "#FAF7F4"
+    50: "#F4ECE6"
+    100: "#DBC5B0"
+    200: "#CAA98A"
+    300: "#B28254"
+    400: "#A36A33"
+    500: "#8C4500"
+    600: "#7F3F00"
+    700: "#633100"
+    800: "#4D2600"
+    900: "#3B1D00"
+    950: "#2E1700"
+  rose:
+    25: "#FEFAFA"
+    50: "#FEF0EF"
+    100: "#FAD1CE"
+    200: "#F8BAB6"
+    300: "#F59B94"
+    400: "#F38880"
+    500: "#F06A60"
+    600: "#DA6057"
+    700: "#AA4B44"
+    800: "#843A35"
+    900: "#652D2D"
+    950: "#421D1A"
+  sunlight:
+    25: "#FEF9F6"
+    50: "#FDF5E6"
+    100: "#F8DFB0"
+    200: "#F4CF8A"
+    300: "#F0B954"
+    400: "#EDAC33"
+    500: "#E89700"
+    600: "#D38900"
+    700: "#A56B00"
+    800: "#805300"
+    900: "#613F00"
+    950: "#472E00"
+  accent:
+    300: "#5DD7DC"
+    500: "#4EB1B5"
+    700: "#418083"
+    900: "#376E71"
+
+semantic_colors:
+  bg:
+    primary:
+      light: moonlight/300
+      dark: midnight/950
+    secondary:
+      light: moonlight/400
+      dark: midnight/900
+    tertiary:
+      light: moonlight/500
+      dark: midnight/800
+    quaternary:
+      light: moonlight/550
+      dark: midnight/700
+    quinary:
+      light: moonlight/600
+      dark: midnight/600
+    hover:
+      light: moonlight/550
+      dark: midnight/700
+    selected:
+      light: moonlight/500
+      dark: midnight/600
+    disabled:
+      light: moonlight/550
+      dark: midnight/800
+    accent:
+      light: accent/500
+      dark: oceanSwell/700
+    highlight:
+      light: moonlight/600
+      dark: sunlight/900
+    overlay:
+      light: midnight/600
+      dark: midnight/600
+    neutral:
+      light: moonlight/600
+      dark: midnight/700
+    avatar:
+      light: sunlight/200
+      dark: sunlight/800
+    badge:
+      light: oceanSwell/700
+      dark: oceanSwell/800
+    badge-hover:
+      light: oceanSwell/900
+      dark: oceanSwell/900
+    success-primary:
+      light: jade/100
+      dark: jade/900
+    success-secondary:
+      light: jade/800
+      dark: jade/100
+    error-primary:
+      light: rose/100
+      dark: rose/900
+    error-secondary:
+      light: rose/600
+      dark: rose/100
+    warning-primary:
+      light: sunlight/100
+      dark: sunlight/900
+    warning-secondary:
+      light: sunlight/700
+      dark: sunlight/100
+    info-primary:
+      light: oceanSwell/100
+      dark: oceanSwell/900
+    info-secondary:
+      light: oceanSwell/700
+      dark: oceanSwell/100
+    button/primary:
+      light: midnight/600
+      dark: moonlight/50
+    button/primary/hover:
+      light: midnight/800
+      dark: moonlight/300
+    button/secondary:
+      light: moonlight/400
+      dark: midnight/800
+    button/secondary/hover:
+      light: moonlight/550
+      dark: midnight/700
+    button/ghost:
+      light: transparent
+      dark: transparent
+    button/ghost/hover:
+      light: moonlight/550
+      dark: midnight/800
+    button/disabled:
+      light: moonlight/600
+      dark: midnight/800
+    button/destructive:
+      light: rose/600
+      dark: rose/700
+    button/destructive/hover:
+      light: rose/700
+      dark: rose/600
+    alert/success:
+      light: jade/50
+      dark: jade/950
+    alert/error:
+      light: rose/50
+      dark: rose/950
+    alert/warning:
+      light: sunlight/50
+      dark: sunlight/950
+    alert/neutral:
+      light: moonlight/50
+      dark: midnight/800
+  text:
+    primary:
+      light: midnight/700
+      dark: moonlight/50
+    secondary:
+      light: midnight/400
+      dark: moonlight/200
+    tertiary:
+      light: midnight/300
+      dark: moonlight/500
+    placeholder:
+      light: midnight/400
+      dark: midnight/200
+    disabled:
+      light: moonlight/700
+      dark: midnight/200
+    inverse:
+      light: moonlight/25
+      dark: midnight/900
+    link:
+      light: accent/700
+      dark: accent/300
+    success:
+      light: jade/800
+      dark: jade/200
+    error:
+      light: rose/800
+      dark: rose/200
+    warning:
+      light: sunlight/800
+      dark: sunlight/200
+    info:
+      light: oceanSwell/800
+      dark: oceanSwell/200
+    button/primary/label/default:
+      light: midnight/25
+      dark: midnight/900
+    button/primary/label/disabled:
+      light: moonlight/700
+      dark: midnight/400
+    button/secondary/label/default:
+      light: midnight/700
+      dark: moonlight/50
+    button/secondary/label/disabled:
+      light: moonlight/700
+      dark: midnight/200
+  icon:
+    primary:
+      light: midnight/700
+      dark: moonlight/50
+    secondary:
+      light: midnight/400
+      dark: moonlight/500
+    tertiary:
+      light: midnight/300
+      dark: moonlight/600
+    inverse:
+      light: midnight/25
+      dark: midnight/900
+    disabled:
+      light: moonlight/700
+      dark: midnight/200
+    success:
+      light: jade/700
+      dark: jade/400
+    error:
+      light: rose/700
+      dark: rose/400
+    warning:
+      light: sunlight/700
+      dark: sunlight/400
+    info:
+      light: oceanSwell/700
+      dark: oceanSwell/400
+    neutral:
+      light: moonlight/900
+      dark: moonlight/600
+    active:
+      light: oceanSwell/500
+      dark: oceanSwell/400
+    selected:
+      light: accent/700
+      dark: accent/300
+  stroke:
+    primary:
+      light: moonlight/600
+      dark: midnight/600
+    secondary:
+      light: moonlight/550
+      dark: midnight/700
+    accent:
+      light: accent/700
+      dark: oceanSwell/500
+    inverse:
+      light: defaults/black
+      dark: defaults/white
+    alert/success:
+      light: jade/100
+      dark: jade/800
+    alert/error:
+      light: rose/100
+      dark: rose/800
+    alert/warning:
+      light: sunlight/100
+      dark: sunlight/800
+    alert/neutral:
+      light: midnight/100
+      dark: midnight/700
+    input/default:
+      light: moonlight/600
+      dark: midnight/600
+    input/hover:
+      light: moonlight/700
+      dark: midnight/500
+    input/active:
+      light: moonlight/900
+      dark: midnight/400
+    input/error:
+      light: rose/700
+      dark: rose/500
+    input/disabled:
+      light: moonlight/700
+      dark: midnight/700
+    input/badge:
+      light: oceanSwell/700
+      dark: oceanSwell/800
+    input/badge-hover:
+      light: oceanSwell/900
+      dark: oceanSwell/900
+    input/split:
+      light: moonlight/950
+      dark: moonlight/600
+  chart:
+    a:
+      light: jade/600
+      dark: jade/400
+    b:
+      light: oceanSwell/600
+      dark: oceanSwell/400
+    c:
+      light: sunlight/500
+      dark: sunlight/400
+    d:
+      light: lavender/600
+      dark: lavender/400
+    e:
+      light: rose/600
+      dark: rose/400
+    f:
+      light: accent/500
+      dark: accent/500
+    g:
+      light: olive/500
+      dark: olive/300
+    h:
+      light: oceanSwell/700
+      dark: oceanSwell/300
+    i:
+      light: roots/500
+      dark: roots/300
+    j:
+      light: heart/600
+      dark: heart/400
+  utility:
+    focus:
+      light: oceanSwell/500
+      dark: oceanSwell/500
+
+typography:
+  families:
+    heading:
+      name: "Generation 1970 Light"
+      weight: 300
+      role: heading
+    display:
+      name: "Poppins"
+      weight: 500
+      role: display
+    title:
+      name: "Inter"
+      weight: 500
+      role: title
+    body:
+      name: "Inter"
+      weight: 400
+      role: body
+  scale:
+    heading-xl:
+      family: heading
+      size: 32
+      lineHeight: "137.5%"
+      letterSpacing: 0.1
+    heading-lg:
+      family: heading
+      size: 24
+      lineHeight: "150%"
+      letterSpacing: 0.1
+    heading-md:
+      family: heading
+      size: 20
+      lineHeight: "140%"
+      letterSpacing: 0.1
+    heading-sm:
+      family: heading
+      size: 18
+      lineHeight: "133%"
+      letterSpacing: 0.1
+    display-2xl:
+      family: display
+      size: 32
+      lineHeight: "137.5%"
+      letterSpacing: 0.2
+    display-xl:
+      family: display
+      size: 24
+      lineHeight: "150%"
+      letterSpacing: 0.2
+    display-lg:
+      family: display
+      size: 18
+      lineHeight: "133%"
+      letterSpacing: 0.2
+    display-md:
+      family: display
+      size: 16
+      lineHeight: "150%"
+      letterSpacing: 0.2
+    display-sm:
+      family: display
+      size: 14
+      lineHeight: "143%"
+      letterSpacing: 0.2
+    display-xs:
+      family: display
+      size: 12
+      lineHeight: "133%"
+      letterSpacing: 0.3
+    title-lg:
+      family: title
+      size: 16
+      lineHeight: "150%"
+      letterSpacing: 0.2
+    title-md:
+      family: title
+      size: 14
+      lineHeight: "143%"
+      letterSpacing: 0.2
+    title-sm:
+      family: title
+      size: 12
+      lineHeight: "133%"
+      letterSpacing: 0.2
+    body-md:
+      family: body
+      size: 14
+      lineHeight: "143%"
+      letterSpacing: 0.2
+    body-md-semibold:
+      family: body
+      size: 14
+      lineHeight: "143%"
+      letterSpacing: 0.2
+      weight: 600
+    body-sm:
+      family: body
+      size: 12
+      lineHeight: "133%"
+      letterSpacing: 0.2
+    body-sm-semibold:
+      family: body
+      size: 12
+      lineHeight: "133%"
+      letterSpacing: 0.2
+      weight: 600

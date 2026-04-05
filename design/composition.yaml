@@ -85,22 +85,22 @@ spacing_rhythm:
     use: "hero section bottom margin"
 
 surface_hierarchy:
-  level_1:
+  - level: 1
     token: flow/color/bg/primary
     use: "canvas default, card backgrounds"
-  level_2:
+  - level: 2
     token: flow/color/bg/secondary
     use: "card headers, alternating rows, elevated areas"
-  level_3:
+  - level: 3
     token: flow/color/bg/tertiary
     use: "nested containers, inset elements"
-  level_4:
+  - level: 4
     token: flow/color/bg/quaternary
     use: "deep nesting, recessed insets"
-  level_5:
+  - level: 5
     token: flow/color/bg/quinary
     use: "deepest nesting, badge fills"
-  rule: "Never skip levels. Depth should feel like stacking warm paper."
+  - rule: "Never skip levels. Depth should feel like stacking warm paper."
 
 separation:
   gap_only:
