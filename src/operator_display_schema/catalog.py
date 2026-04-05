@@ -35,6 +35,7 @@ class CatalogEntry:
     best_for: list[str] = field(default_factory=list)
     data_shape: str | None = None
     properties: list[PropertyDef] = field(default_factory=list)
+    style_defaults: dict[str, str] = field(default_factory=dict)
 
     @property
     def required_properties(self) -> list[str]:
@@ -98,6 +99,7 @@ def load_catalog() -> dict[str, CatalogEntry]:
                 best_for=comp.get("best_for", []),
                 data_shape=comp.get("data_shape"),
                 properties=props,
+                style_defaults=comp.get("style_defaults", {}),
             )
     return entries
 

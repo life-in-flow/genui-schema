@@ -1,0 +1,62 @@
+version: "1.0"
+
+principles:
+  - name: token_absolutism
+    rule: >
+      Every visual value -- color, spacing, radius, typography -- must resolve
+      through a flow/* semantic token. No raw hex values, no magic numbers,
+      no hardcoded pixels. A component specifying background "#F7F3EA" is
+      invalid; it must be "flow/color/bg/primary".
+
+  - name: declarative_data
+    rule: >
+      Agents emit structured JSON describing UI intent -- never executable code,
+      HTML strings, or JavaScript. The rendering layer interprets the structure
+      and maps it to platform-native implementations.
+
+  - name: brand_indistinguishability
+    rule: >
+      Generated UI must be indistinguishable from hand-crafted Flow product
+      screens. Same warm canvas (moonlight/300), same tonal surface hierarchy,
+      same typographic contrast (Generation 1970 headings + Poppins display +
+      Inter body), same generous spacing. If someone can tell it was generated,
+      it's wrong.
+
+  - name: progressive_rendering
+    rule: >
+      UI streams incrementally. Components arrive out of order and render as
+      they land. Use flat structures over nested trees -- components reference
+      parents by ID. Every component has a loading state.
+
+constraint_layers:
+  - name: token
+    enforces: "Prevents wrong colors, spacing, broken themes"
+    mechanism: "JSON schema validation rejects raw values at runtime; linters enforce at build time"
+
+  - name: catalog
+    enforces: "Prevents unknown components, invalid props, unsafe elements"
+    mechanism: "All component types validated against the catalog before rendering"
+
+  - name: composition
+    enforces: "Prevents valid tokens + valid components = ugly or confusing screen"
+    mechanism: "Agent prompts, design-auditor agent, and learning loop -- not schema validation"
+
+themes:
+  supported: ["light", "dark"]
+  behavior: >
+    Agent references semantic tokens only. The renderer resolves per-theme
+    automatically. Agent does not specify which theme -- it uses
+    flow/color/bg/primary and the frontend maps to moonlight/300 (light)
+    or midnight/950 (dark).
+
+guidelines:
+  - "Always use the compose_ui tool to emit UI -- it is the only display tool"
+  - "Reference components by their catalog type name (Card, LineChart, DataTable, etc.)"
+  - "Use style_defaults from the catalog as the baseline -- only override when the context demands it"
+  - "Apply spacing rhythm rules: sections get spacing/4xl, cards get spacing/3xl, child gaps get spacing/xl"
+  - "Follow surface hierarchy: bg/primary -> bg/secondary -> bg/tertiary -> bg/quaternary. Never skip levels."
+  - "Use strokes for structural containers and data separators. Use tonal shifts for spatial separation."
+  - "Assign chart colors sequentially: first series = chart/a, second = chart/b, etc."
+  - "One primary button per visible area. Supporting actions use secondary."
+  - "Headings use Generation 1970 Light. Display/UI emphasis uses Poppins. Body text uses Inter."
+  - "Every interactive element must have hover, focus, and disabled states"

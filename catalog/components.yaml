@@ -13,6 +13,9 @@ categories:
         properties:
           content: { type: string, required: true }
           variant: { type: string }
+        style_defaults:
+          font: "flow/font/body-md"
+          color: "flow/color/text/primary"
 
       - type: KPI
         description: Key performance indicator card with trend arrow and status color.
@@ -22,6 +25,10 @@ categories:
           value: { type: string, required: true }
           trend: { type: string }
           status: { type: string }
+        style_defaults:
+          valueFont: "flow/font/display-xl"
+          labelFont: "flow/font/body-sm"
+          labelColor: "flow/color/text/secondary"
 
       - type: MetricGroup
         description: Grouped metrics panel — a compact row of 2-4 KPIs.
@@ -58,6 +65,10 @@ categories:
           delta: { type: string }
           delta_type: { type: string }
           icon: { type: string }
+        style_defaults:
+          background: "flow/color/bg/primary"
+          borderRadius: "flow/radius/lg"
+          padding: "flow/spacing/xl"
 
       - type: Card
         description: Generic card container with title, subtitle, and content.
@@ -66,6 +77,12 @@ categories:
           title: { type: string, required: true }
           subtitle: { type: string }
           content: { type: string }
+        style_defaults:
+          background: "flow/color/bg/primary"
+          border: "flow/stroke/sm solid flow/color/stroke/primary"
+          borderRadius: "flow/radius/md"
+          padding: "flow/spacing/3xl"
+          gap: "flow/spacing/xl"
 
       - type: Image
         description: Display an image from a URL.
@@ -88,6 +105,10 @@ categories:
         properties:
           label: { type: string, required: true }
           variant: { type: string }
+        style_defaults:
+          background: "flow/color/bg/quinary"
+          borderRadius: "flow/radius/full"
+          font: "flow/font/body-sm"
 
   # ── Charts ──────────────────────────────────────────────────────────
   - id: charts
@@ -362,6 +383,11 @@ categories:
           rows: { type: array, required: true }
           sortable: { type: boolean }
           filterable: { type: boolean }
+        style_defaults:
+          headerFont: "flow/font/display-xs"
+          headerColor: "flow/color/text/tertiary"
+          bodyFont: "flow/font/body-md"
+          rowBorder: "flow/stroke/sm solid flow/color/stroke/secondary"
 
       - type: PivotTable
         description: Pivot table with row/column/value aggregation.
@@ -446,6 +472,9 @@ categories:
         properties:
           labels: { type: array, required: true }
           default_index: { type: number }
+        style_defaults:
+          borderBottom: "flow/stroke/sm solid flow/color/stroke/primary"
+          labelFont: "flow/font/body-sm"
 
       - type: Accordion
         description: Expandable/collapsible section.
@@ -453,6 +482,9 @@ categories:
         properties:
           title: { type: string, required: true }
           expanded: { type: boolean }
+        style_defaults:
+          borderBottom: "flow/stroke/sm solid flow/color/stroke/primary"
+          padding: "flow/spacing/xl"
 
       - type: Modal
         description: Overlay dialog panel.
@@ -461,6 +493,11 @@ categories:
           title: { type: string, required: true }
           open: { type: boolean }
           size: { type: string }
+        style_defaults:
+          background: "flow/color/bg/primary"
+          borderRadius: "flow/radius/xl"
+          padding: "flow/spacing/3xl"
+          overlay: "flow/color/bg/overlay"
 
   # ── Input ───────────────────────────────────────────────────────────
   - id: input
@@ -474,6 +511,10 @@ categories:
           variant: { type: string }
           action: { type: string }
           disabled: { type: boolean }
+        style_defaults:
+          borderRadius: "flow/radius/sm"
+          height: "flow/size/8"
+          font: "flow/font/display-sm"
 
       - type: TextField
         description: Single-line text input field.
@@ -483,6 +524,10 @@ categories:
           placeholder: { type: string }
           value: { type: string }
           required: { type: boolean }
+        style_defaults:
+          borderBottom: "flow/stroke/sm solid flow/color/stroke/input/default"
+          font: "flow/font/body-md"
+          padding: "flow/spacing/md"
 
       - type: Select
         description: Dropdown select from a list of options.
@@ -491,6 +536,9 @@ categories:
           label: { type: string, required: true }
           options: { type: array, required: true }
           value: { type: string }
+        style_defaults:
+          borderBottom: "flow/stroke/sm solid flow/color/stroke/input/default"
+          font: "flow/font/body-md"
 
       - type: DatePicker
         description: Date selection input.
@@ -517,6 +565,8 @@ categories:
         properties:
           label: { type: string, required: true }
           value: { type: boolean }
+        style_defaults:
+          activeColor: "flow/color/bg/accent"
 
       - type: MultipleChoice
         description: Multiple choice selection (checkboxes or radio).
@@ -547,6 +597,11 @@ categories:
           amount: { type: number }
           approve_label: { type: string }
           reject_label: { type: string }
+        style_defaults:
+          background: "flow/color/bg/primary"
+          border: "flow/stroke/sm solid flow/color/stroke/primary"
+          borderRadius: "flow/radius/md"
+          padding: "flow/spacing/3xl"
 
       - type: ConfirmDialog
         description: Confirmation dialog with confirm/cancel actions.
@@ -556,6 +611,11 @@ categories:
           message: { type: string, required: true }
           confirm_label: { type: string }
           cancel_label: { type: string }
+        style_defaults:
+          background: "flow/color/bg/primary"
+          borderRadius: "flow/radius/xl"
+          padding: "flow/spacing/3xl"
+          overlay: "flow/color/bg/overlay"
 
       - type: ActionMenu
         description: Dropdown action menu with multiple options.
