@@ -1,6 +1,6 @@
 # Flowmingo Design System
 
-genui-graph-schema integrates the Flowmingo design system to ensure
+genui-schema integrates the Flowmingo design system to ensure
 agent-generated UI is on-brand and visually consistent with hand-crafted
 products.
 
@@ -17,7 +17,7 @@ The design system lives in three YAML files under `design/`:
 ## Python API
 
 ```python
-from genui_graph_schema import (
+from genui_schema import (
     load_design_system,   # Returns DesignSystem with tokens, composition, gen_ui
     build_system_context,  # Returns prompt-ready string for LLM system prompts
 )
@@ -113,6 +113,6 @@ Use tonal surface shifts for spatial separation between elements.
 
 When an agent platform adopts this package:
 
-1. Replace inline A2UI catalog with `from genui_graph_schema import STANDARD_CATALOG`
+1. Replace inline A2UI catalog with `from genui_schema import STANDARD_CATALOG`
 2. Add `build_system_context()` output to the reasoner system prompt
 3. Frontend renderers can consume `design/tokens.yaml` for token resolution

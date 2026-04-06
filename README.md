@@ -1,4 +1,4 @@
-# genui-graph-schema
+# genui-schema
 
 The **single source of truth** for the GenUI component catalog, wire protocol, and display tool spec.
 
@@ -16,13 +16,13 @@ This package defines what UI components an agent can render, what properties eac
 ## Install
 
 ```bash
-pip install "genui-graph-schema @ git+https://github.com/life-in-flow/genui-graph-schema.git"
+pip install "genui-schema @ git+https://github.com/life-in-flow/genui-schema.git"
 ```
 
 ## Quick start
 
 ```python
-from genui_graph_schema import (
+from genui_schema import (
     STANDARD_CATALOG,      # Legacy dict: {type: {properties, required}}
     load_catalog,          # Rich catalog: {type: CatalogEntry}
     BoundValue,            # Literal or data-bound value
@@ -62,7 +62,7 @@ assert errors == []
 catalog/components.yaml     # 58 component types (language-neutral YAML)
 schema/wire_protocol.yaml   # A2UI message types (surface_update, data_model_update, ...)
 schema/compose_ui_tool.yaml # The compose_ui tool spec
-src/genui_graph_schema/
+src/genui_schema/
   models.py                 # BoundValue, Component, Surface, UserAction (Pydantic)
   catalog.py                # YAML loader, STANDARD_CATALOG, CatalogEntry
   validation.py             # validate_surface()

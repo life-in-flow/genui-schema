@@ -1,6 +1,6 @@
 """Tests for the design system loader."""
 
-from genui_graph_schema.design import load_design_system, DesignSystem
+from genui_schema.design import load_design_system, DesignSystem
 
 
 def test_design_system_loads():
