@@ -1,7 +1,7 @@
 """Tests for token validation in validate_surface()."""
 
-from operator_display_schema.models import BoundValue, Component, Surface
-from operator_display_schema.validation import validate_surface
+from genui_graph_schema.models import BoundValue, Component, Surface
+from genui_graph_schema.validation import validate_surface
 
 
 def _surface_with_style(style: dict[str, str]) -> Surface:

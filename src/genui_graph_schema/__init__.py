@@ -1,6 +1,6 @@
-"""operator-display-schema -- A2UI component catalog and wire protocol schema.
+"""genui-graph-schema -- declarative component catalog and wire protocol for agent-driven UI.
 
-This package is the single source of truth for what UI components the Operator
+This package is the single source of truth for what UI components an agent
 can render, their property schemas, and the wire protocol for agent-to-frontend
 communication.
 

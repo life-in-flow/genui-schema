@@ -1,6 +1,6 @@
 """Tests for style_defaults in catalog entries."""
 
-from operator_display_schema import load_catalog
+from genui_graph_schema import load_catalog
 
 
 def test_card_has_style_defaults():

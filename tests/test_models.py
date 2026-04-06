@@ -1,6 +1,6 @@
 """Tests for Pydantic models."""
 
-from operator_display_schema import BoundValue, Component, Surface, UserAction
+from genui_graph_schema import BoundValue, Component, Surface, UserAction
 
 
 def test_bound_value_literal_string():

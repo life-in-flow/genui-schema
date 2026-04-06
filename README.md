@@ -1,8 +1,8 @@
-# operator-display-schema
+# genui-graph-schema
 
-The **single source of truth** for the Operator A2UI component catalog, wire protocol, and display tool spec.
+The **single source of truth** for the GenUI component catalog, wire protocol, and display tool spec.
 
-This package defines what UI components the Operator agent can render, what properties each component accepts, and how surfaces are communicated between agent and frontend. It replaces the deprecated `tool-graph-display` plugin.
+This package defines what UI components an agent can render, what properties each component accepts, and how surfaces are communicated between agent and frontend. It replaces the deprecated `tool-graph-display` plugin.
 
 ## Who uses this
 
@@ -16,13 +16,13 @@ This package defines what UI components the Operator agent can render, what prop
 ## Install
 
 ```bash
-pip install "operator-display-schema @ git+https://github.com/life-in-flow/operator-display-schema.git"
+pip install "genui-graph-schema @ git+https://github.com/life-in-flow/genui-graph-schema.git"
 ```
 
 ## Quick start
 
 ```python
-from operator_display_schema import (
+from genui_graph_schema import (
     STANDARD_CATALOG,      # Legacy dict: {type: {properties, required}}
     load_catalog,          # Rich catalog: {type: CatalogEntry}
     BoundValue,            # Literal or data-bound value
@@ -62,7 +62,7 @@ assert errors == []
 catalog/components.yaml     # 58 component types (language-neutral YAML)
 schema/wire_protocol.yaml   # A2UI message types (surface_update, data_model_update, ...)
 schema/compose_ui_tool.yaml # The compose_ui tool spec
-src/operator_display_schema/
+src/genui_graph_schema/
   models.py                 # BoundValue, Component, Surface, UserAction (Pydantic)
   catalog.py                # YAML loader, STANDARD_CATALOG, CatalogEntry
   validation.py             # validate_surface()

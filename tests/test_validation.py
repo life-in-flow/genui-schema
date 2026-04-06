@@ -1,6 +1,6 @@
 """Tests for surface validation."""
 
-from operator_display_schema import BoundValue, Component, Surface, validate_surface
+from genui_graph_schema import BoundValue, Component, Surface, validate_surface
 
 
 def test_valid_surface():

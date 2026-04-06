@@ -1,6 +1,6 @@
 """Tests for the component catalog loader."""
 
-from operator_display_schema import STANDARD_CATALOG, load_catalog
+from genui_graph_schema import STANDARD_CATALOG, load_catalog
 
 
 def test_catalog_loads():

@@ -1,6 +1,6 @@
 """Tests for the system context prompt builder."""
 
-from operator_display_schema.prompt import build_system_context
+from genui_graph_schema.prompt import build_system_context
 
 
 def test_returns_non_empty_string():
