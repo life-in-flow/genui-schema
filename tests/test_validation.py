@@ -1,6 +1,13 @@
 """Tests for surface validation."""
 
-from genui_schema import BoundValue, Component, Surface, validate_surface
+from genui_schema import (
+    BoundValue,
+    Component,
+    FollowUpSuggestion,
+    Surface,
+    validate_suggestions,
+    validate_surface,
+)
 
 
 def test_valid_surface():
@@ -84,3 +91,35 @@ def test_bad_root_id():
     )
     errors = validate_surface(surface)
     assert any("root_id" in e for e in errors)
+
+
+# ── Follow-up suggestion validation ─────────────────────────────────
+
+
+def test_valid_suggestions():
+    suggestions = [
+        FollowUpSuggestion(id="1", label="View Pipeline"),
+        FollowUpSuggestion(id="2", label="Schedule Tours", icon="CalendarHeart02"),
+    ]
+    errors = validate_suggestions(suggestions)
+    assert errors == []
+
+
+def test_empty_suggestions_valid():
+    errors = validate_suggestions([])
+    assert errors == []
+
+
+def test_duplicate_suggestion_ids():
+    suggestions = [
+        FollowUpSuggestion(id="1", label="A"),
+        FollowUpSuggestion(id="1", label="B"),
+    ]
+    errors = validate_suggestions(suggestions)
+    assert any("duplicate" in e for e in errors)
+
+
+def test_suggestion_missing_label():
+    suggestions = [FollowUpSuggestion(id="1", label="")]
+    errors = validate_suggestions(suggestions)
+    assert any("missing label" in e for e in errors)

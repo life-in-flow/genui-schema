@@ -66,3 +66,16 @@ def test_includes_style_defaults():
 def test_includes_guidelines():
     result = build_system_context()
     assert "token" in result.lower()
+
+
+def test_includes_suggestions_guidance():
+    result = build_system_context()
+    assert "Follow-Up Suggestions" in result
+    assert "suggestions" in result.lower()
+
+
+def test_exclude_suggestions():
+    with_sug = build_system_context(include_suggestions=True)
+    without_sug = build_system_context(include_suggestions=False)
+    assert "Follow-Up Suggestions" in with_sug
+    assert "Follow-Up Suggestions" not in without_sug

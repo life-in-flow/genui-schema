@@ -45,6 +45,23 @@ parameters:
       data keys via {"path": "key.subkey"}. Complex values (arrays, objects)
       passed as literal props are auto-promoted to the data model.
 
+  suggestions:
+    type: array
+    required: false
+    description: >
+      Optional follow-up suggestions shown as action buttons below the
+      conversation. Each item: {"id": "unique-id", "label": "Button text",
+      "prompt": "message to send", "icon": "IconName"}.
+      Replaces any previous suggestions. Omit or pass [] to clear.
+    example:
+      - id: "1"
+        label: "View Leasing Pipeline"
+        icon: "Key01"
+        prompt: "Show me the current leasing pipeline with all active prospects"
+      - id: "2"
+        label: "Schedule Prospect Tours"
+        icon: "CalendarHeart02"
+
   interactive:
     type: boolean
     required: false

@@ -5,7 +5,7 @@ from __future__ import annotations
 from functools import lru_cache
 
 from .catalog import STANDARD_CATALOG
-from .models import Surface
+from .models import FollowUpSuggestion, Surface
 
 
 _ALLOWED_LITERALS = {"transparent", "inherit", "none", "auto"}
@@ -129,5 +129,27 @@ def validate_surface(surface: Surface) -> list[str]:
         # Validate style values against token registry
         for key, value in comp.style.items():
             errors.extend(_validate_style_value(comp.id, key, value))
+
+    return errors
+
+
+def validate_suggestions(suggestions: list[FollowUpSuggestion]) -> list[str]:
+    """Validate a list of follow-up suggestions.
+
+    Returns a list of human-readable error strings. Empty list means valid.
+    """
+    errors: list[str] = []
+    seen_ids: set[str] = set()
+
+    for i, suggestion in enumerate(suggestions):
+        if not suggestion.id:
+            errors.append(f"Suggestion [{i}]: missing id")
+        elif suggestion.id in seen_ids:
+            errors.append(f"Suggestion [{i}]: duplicate id '{suggestion.id}'")
+        else:
+            seen_ids.add(suggestion.id)
+
+        if not suggestion.label:
+            errors.append(f"Suggestion [{i}]: missing label")
 
     return errors

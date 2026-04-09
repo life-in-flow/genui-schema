@@ -16,6 +16,7 @@ def build_system_context(
     include_tokens: bool = True,
     include_composition: bool = True,
     include_catalog: bool = True,
+    include_suggestions: bool = True,
     theme: str | None = None,
 ) -> str:
     """Return a prompt-ready string combining catalog + design system.
@@ -24,6 +25,7 @@ def build_system_context(
         include_tokens: Include token reference (colors, spacing, typography).
         include_composition: Include composition rules (containers, rhythm).
         include_catalog: Include component catalog with style_defaults.
+        include_suggestions: Include follow-up suggestions guidance.
         theme: If set, filter semantic colors to this theme only.
     """
     ds = load_design_system()
@@ -40,6 +42,9 @@ def build_system_context(
 
     if include_composition:
         sections.append(_build_composition(ds))
+
+    if include_suggestions:
+        sections.append(_build_suggestions_guidance())
 
     return "\n\n".join(sections)
 
@@ -163,6 +168,24 @@ def _build_tokens(ds, *, theme: str | None = None) -> str:
         size = style["size"]
         lines.append(f"- {style_name}: {fam}, {size}px")
 
+    return "\n".join(lines)
+
+
+def _build_suggestions_guidance() -> str:
+    lines = ["## Follow-Up Suggestions"]
+    lines.append(
+        "You can include `suggestions` in your compose_ui call to offer "
+        "follow-up actions the user can take. These render as action buttons "
+        "below the conversation."
+    )
+    lines.append("")
+    lines.append("Guidelines:")
+    lines.append("- Offer 2-4 suggestions that naturally follow from the current response")
+    lines.append("- Labels should be concise action phrases (e.g. 'View Leasing Pipeline')")
+    lines.append("- Use `prompt` when the message to send differs from the display label")
+    lines.append("- Icons are optional; use Flowmingo icon names (e.g. 'Key01', 'CalendarHeart02')")
+    lines.append("- Suggestions replace previous ones -- each response sets a fresh list")
+    lines.append("- Omit suggestions when no natural follow-ups exist")
     return "\n".join(lines)
 
 

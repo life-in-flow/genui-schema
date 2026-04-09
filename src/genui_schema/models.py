@@ -95,3 +95,20 @@ class UserAction(BaseModel):
     component_id: str
     action: str  # "click", "change", "submit"
     value: Any = None
+
+
+class FollowUpSuggestion(BaseModel):
+    """A single follow-up action the user can take after an agent response.
+
+    Maps to AIAgentChatAction on the frontend. The label is displayed as button
+    text; prompt (defaulting to label) is sent as a user message when clicked.
+    """
+
+    id: str
+    label: str
+    prompt: str | None = None
+    icon: str | None = None
+
+    def effective_prompt(self) -> str:
+        """Return the prompt to send, falling back to label."""
+        return self.prompt if self.prompt is not None else self.label

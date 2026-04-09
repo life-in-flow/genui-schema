@@ -1,6 +1,6 @@
 """Tests for Pydantic models."""
 
-from genui_schema import BoundValue, Component, Surface, UserAction
+from genui_schema import BoundValue, Component, FollowUpSuggestion, Surface, UserAction
 
 
 def test_bound_value_literal_string():
@@ -85,3 +85,26 @@ def test_user_action():
     assert action.surface_id == "s1"
     assert action.action == "click"
     assert action.value == {"confirmed": True}
+
+
+def test_follow_up_suggestion_basic():
+    s = FollowUpSuggestion(id="1", label="View Pipeline")
+    assert s.id == "1"
+    assert s.label == "View Pipeline"
+    assert s.prompt is None
+    assert s.icon is None
+
+
+def test_follow_up_suggestion_effective_prompt_uses_label():
+    s = FollowUpSuggestion(id="1", label="View Pipeline")
+    assert s.effective_prompt() == "View Pipeline"
+
+
+def test_follow_up_suggestion_effective_prompt_uses_prompt():
+    s = FollowUpSuggestion(id="1", label="View Pipeline", prompt="Show detailed pipeline data")
+    assert s.effective_prompt() == "Show detailed pipeline data"
+
+
+def test_follow_up_suggestion_with_icon():
+    s = FollowUpSuggestion(id="1", label="View Pipeline", icon="Key01")
+    assert s.icon == "Key01"

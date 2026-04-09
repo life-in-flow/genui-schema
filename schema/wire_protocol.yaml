@@ -41,6 +41,14 @@ models:
       action: { type: string, required: true, description: "'click', 'change', or 'submit'" }
       value: { type: any, description: "Action payload" }
 
+  FollowUpSuggestion:
+    description: A suggested follow-up action the user can take after an agent response.
+    fields:
+      id: { type: string, required: true }
+      label: { type: string, required: true, description: "Display text for the button" }
+      prompt: { type: string, description: "Message sent to agent on click. Defaults to label." }
+      icon: { type: string, description: "Icon name from the Flowmingo icon set" }
+
 # Wire protocol messages (agent → frontend).
 messages:
   surface_update:
@@ -84,6 +92,16 @@ messages:
     fields:
       type: { const: delete_surface }
       surface_id: { type: string, required: true }
+      ts: { type: number }
+
+  follow_up_suggestions:
+    description: >
+      Suggested follow-up actions for the user. Rendered as conversation-level
+      action buttons (maps to AIAgentChat actions), not inside any surface.
+      Each message replaces previous suggestions. Empty array clears them.
+    fields:
+      type: { const: follow_up_suggestions }
+      suggestions: { type: "FollowUpSuggestion[]", required: true }
       ts: { type: number }
 
 # Wire protocol messages (frontend → agent).

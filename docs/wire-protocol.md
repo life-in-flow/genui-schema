@@ -107,6 +107,32 @@ Remove a surface from the frontend.
 }
 ```
 
+### `follow_up_suggestions`
+
+Suggested follow-up actions for the user. Rendered as conversation-level action buttons (maps to `AIAgentChat` actions), not inside any surface. Each message replaces previous suggestions.
+
+```json
+{
+  "type": "follow_up_suggestions",
+  "suggestions": [
+    {"id": "1", "label": "View Leasing Pipeline", "icon": "Key01", "prompt": "Show me the current leasing pipeline"},
+    {"id": "2", "label": "Schedule Prospect Tours", "icon": "CalendarHeart02"}
+  ],
+  "ts": 1712179200.0
+}
+```
+
+Each suggestion has:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | `string` | Yes | Unique suggestion identifier |
+| `label` | `string` | Yes | Display text for the button |
+| `prompt` | `string` | No | Message sent to agent on click (defaults to `label`) |
+| `icon` | `string` | No | Icon name from the Flowmingo icon set |
+
+Sending an empty `suggestions` array clears previous suggestions.
+
 ## Frontend-to-Agent Messages
 
 ### `user_action`
